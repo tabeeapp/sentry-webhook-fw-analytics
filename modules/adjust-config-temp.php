@@ -24,15 +24,58 @@ $config = (object)[
         ],
 
     'include_user' => 
-        [ 'ip_address', 'id' ],
-
-    'clean_keys' =>
-        [ 'user_id', 'transaction', 'sentry:user' ],
+        [ 
+            'ip_address', 
+            'id' 
+        ],
 
     'default_params' =>
-        [ 
+        [
             'event_token' => 'adjust_event_token',
             'app_token' => 'adjust_app_token',
             's2s' => 1
-        ]
+            'environment' => 'production'
+        ],
+
+    'callback_params' =>
+        [
+            'user_id' => 'userID',
+            'release' => 'app_version',
+            'level' => 'error_level',
+            'transaction' => 'controller',
+            'os' => 'os_version',
+            'device' => 'device_version',
+            'user_email' => 'email'
+        ],
+
+    'partner_params' =>
+        [
+            'release' => 'app_version'
+        ],
+
+    'clean_keys' =>
+        [ 
+            'user_id', 
+            'sentry:user',
+            'browser',
+            'browser.name',
+            'os.name',
+            'id',
+            'app.device',
+            'device',
+            'device.family',
+            'dist',
+            'handled',
+            'level',
+            'mechanism',
+            'os',
+            'os.name',
+            'os.rooted',
+            'push_token',
+            'release',
+            'transaction',
+            'user',
+            'user_id',
+            'email'
+        ],
 ];

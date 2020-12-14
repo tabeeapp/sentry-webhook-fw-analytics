@@ -32,13 +32,26 @@ function extract_user( &$params, $user ) {
 function modify_params( &$params ) {
     $params['sentry_user'] = explode( ':', $params['sentry:user'] )[1];
 
-    $params['callback_params'] = [
-        'user_id' => $params['user_id'],
-    ];
+    $params['idfa'] = $params['ios_idfa'];
 
-    $params['partner_params'] = [
-        'push_token' => $params['push_token'],
-    ];
+    callback_params( $params );
+    partner_params( $params );
+}
+
+function callback_params( &$params ) {
+    $params['callback_params'] = [];
+
+    foreach( config()->callback_params as $key => $value ) {
+        $params['callback_params'][$value] = $params[$key];
+    }
+}
+
+function partner_params( &$params ) {
+    $params['partner_params'] = [];
+
+    foreach( config()->partner_params as $key => $value ) {
+        $params['partner_params'][$value] = $params[$key];
+    }
 }
 
 function clean ( &$params ) {
@@ -47,7 +60,7 @@ function clean ( &$params ) {
     }
 
     foreach ( $params as $key => $value ) {
-        if ( empty( $value ) ) {
+        if ( empty( $value ) || $value === 'null' ) {
             unset( $params[$key] );
         }
     }

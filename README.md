@@ -81,6 +81,12 @@ You are all set now.
 
 #### <a id="logs"></a>Logging your results ####
 
+If you want to store logs you need to create relevant directory:
+
+```
+$ mkdir logs
+```
+
 To disable logs just set it so in `adjust-config.php`
 
 ```
